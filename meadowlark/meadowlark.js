@@ -24,3 +24,5 @@ app.use(function(err, req, res, next){
 	res.status(500);
 	res.render('500');
 });
+
+app.listen(8080);
