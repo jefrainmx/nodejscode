@@ -1,3 +1,4 @@
+'use strict';
 
 var express = require('express');
 var app = express();
@@ -5,8 +6,6 @@ var app = express();
 // set up handlebars view engine
 var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
-app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'handlebars');
 
 app.get('/', function(req, res) {
