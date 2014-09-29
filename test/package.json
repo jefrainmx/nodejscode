@@ -6,6 +6,6 @@
   "author": "sean@seanmcgary.com",
   "license": "MIT",
   "dependencies": {
-    "express": "*"
+    "express": "^4.9.5"
   }
 }
