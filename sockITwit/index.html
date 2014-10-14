@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<h1>Tweets</h1>
+<div class="prim">
+    <div id="messages">
+	  <ul class="unstyled">
+	  </ul>
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://localhost/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:80');
+  socket.on('message', function (data) {
+  	if (eval(JSON.parse(data))){
+	  	tweet = JSON.parse(data);
+	    console.log(tweet);
+	    $("<li></li>").html("[" + tweet.user.screen_name + "] " + tweet.text + "<a href=https://twitter.com/" + tweet.user.screen_name + "/status/" + tweet.id_str + " target='_blank'>...</a>").prependTo("ul.unstyled");
+	} else {
+	    console.log("Invalid JSON Object");
+	};
+});
+</script>
+
+</body>
+</html>

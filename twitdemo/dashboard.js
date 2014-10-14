@@ -20,7 +20,7 @@ console.log('Server running at http://localhost:8081/');
 var io  = require('socket.io').listen(server);
 io.set('log level', 0);
 
-myList = ["@deptolucafc", "@Chiapas_FC", "@CF_America", "@TigresOficial", "@Club_Queretaro", "@Tuzos", "@PueblaFC", "@FuerzaMonarca", "@Rayados", "@clubleonfc", "@PumasMX", "@XolosOficial", "@Cruz_Azul_FC", "@ClubSantos", "@tiburonesrojos", "@atlasfc", "@Chivas", "@LeonesNegrosCF", "@LIGABancomerMX "];
+myList = ["@deptolucafc", "@Chiapas_FC", "@CF_America", "@TigresOficial", "@Club_Queretaro", "@Tuzos", "@PueblaFC", "@FuerzaMonarca", "@Rayados", "@clubleonfc", "@PumasMX", "@XolosOficial", "@Cruz_Azul_FC", "@ClubSantos", "@tiburonesrojos", "@atlasfc", "@Chivas", "@LeonesNegrosCF", "@LIGABancomerMX"];
 Array.prototype.del = function(val) {
     for(var i=0; i<this.length; i++) {
         if(this[i] == val) {
@@ -35,7 +35,6 @@ io.sockets.on('connection', function(socket) {
     socket.on('data', function(action,data) {
 
 	if(action==='+') {
-            console.log(myList);
         	myList.push(data);
             console.log(myList);
 	}
