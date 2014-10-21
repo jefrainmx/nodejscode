@@ -25,10 +25,6 @@ var fortunes = [
 "Whenever possible, keep it simple.",
 ];	
 
-app.get('/test', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
-
 app.get('/', function(req, res) {
 	res.render('home');
 });
@@ -36,6 +32,9 @@ app.get('/about', function(req, res) {
 	var randomFortune =
 	fortunes[Math.floor(Math.random() * fortunes.length)];
 	res.render('about', { fortune: randomFortune });
+});
+app.get('/contact', function(req, res) {
+    res.render('contact');
 });
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
@@ -50,6 +49,14 @@ app.use(function(err, req, res, next){
 });
 
 var myList = ["@deptolucafc", "@Chiapas_FC", "@CF_America", "@TigresOficial", "@Club_Queretaro", "@Tuzos", "@PueblaFC", "@FuerzaMonarca", "@Rayados", "@clubleonfc", "@PumasMX", "@XolosOficial", "@Cruz_Azul_FC", "@ClubSantos", "@tiburonesrojos", "@atlasfc", "@Chivas", "@LeonesNegrosCF", "@LIGABancomerMX"];
+Array.prototype.del = function(val) {
+    for(var i=0; i<this.length; i++) {
+        if(this[i] == val) {
+            this.splice(i, 1);
+            break;
+        }
+    }
+}
 
 var twit = new twitter({
     consumer_key:         'WRgVUPTe2fbVscjP3G7qVpiVC',
@@ -59,6 +66,10 @@ var twit = new twitter({
 });
 
 io.on('connection', function(socket) {
+    socket.on('getfilter', function() {
+        console.log(myList);
+        socket.emit('pushfilter', myList);
+    });
     twit.stream('user',{track:myList}, function(stream) {
         stream.on('data', function (tweet) {
 	    	    socket.emit('message', JSON.stringify(tweet));

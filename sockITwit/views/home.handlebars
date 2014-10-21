@@ -1,9 +1,12 @@
-<h1>Welcome to Sock IT for Real</h1>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect('http://localhost:8081');
-  socket.on('news', function (data) {
-    console.log("client::" + data);
-    socket.emit('my other event', { my: 'data' });
-  });
-</script>
+<h2>
+	<span class='label-nw' id="lista">
+	</span>
+</h2>
+<h2>Tweets</h2>
+	<div class="container theme-showcase" role="main" id="tweets">
+		<div class="alert alert-info" role="alert" id="tweets">
+			Starting to load tweets...
+		</div>
+	</div>
+<script src="http://localhost/socket.io/socket.io.js"></script>
+<script src="../js/myscript.js"></script>

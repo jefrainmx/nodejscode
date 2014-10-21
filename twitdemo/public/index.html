@@ -14,28 +14,8 @@ body{padding-top:70px;}
 <body>
 <div class="container-fluid">
    <div class="row">
-      <div class="col-sm-4">
-         <div class="well">
-                <form class="well" id="chat" >
-                    <label>Twitter filter</label>
-                    <input type="text" id="data" placeholder="Add a Twitter tracker…">
-                    <button type="submit" class="btn" onclick="addTrack(); return false;" >Submit</button>
-                </form>
-                <div class="well">
-                    <p>Twitter stream tracker(s):</p>
-                    <div id="tracker">
-                    </div>
-                </div>
-                <form class="well" id="twitter" >
-                    <label>Tweet</label>
-                    <input type="text" id="tweet" placeholder="New Tweet…">
-                    <button type="submit" class="btn" onclick="tweetThat(); return false;" >Submit</button>
-                    <p id="text_counter"></p>
-                </form>
-         </div>
-      </div>
       <div class="col-sm-8">
-         <div class="well">
+         <div class="list-group">
                 <div id="twitter-stream">
             	  <ul class="unstyled"></ul>
                 </div>
