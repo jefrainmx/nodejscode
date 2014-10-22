@@ -1,4 +1,4 @@
-'use strict';
+#!/usr/bin/env node
 
 var express = require('express');
 var app = express();
@@ -48,7 +48,8 @@ app.use(function(err, req, res, next){
 	res.render('500');
 });
 
-var myList = ["@deptolucafc", "@Chiapas_FC", "@CF_America", "@TigresOficial", "@Club_Queretaro", "@Tuzos", "@PueblaFC", "@FuerzaMonarca", "@Rayados", "@clubleonfc", "@PumasMX", "@XolosOficial", "@Cruz_Azul_FC", "@ClubSantos", "@tiburonesrojos", "@atlasfc", "@Chivas", "@LeonesNegrosCF", "@LIGABancomerMX"];
+//var myList = ["@deptolucafc", "@Chiapas_FC", "@CF_America", "@TigresOficial", "@Club_Queretaro", "@Tuzos", "@PueblaFC", "@FuerzaMonarca", "@Rayados", "@clubleonfc", "@PumasMX", "@XolosOficial", "@Cruz_Azul_FC", "@ClubSantos", "@tiburonesrojos", "@atlasfc", "@Chivas", "@LeonesNegrosCF", "@LIGABancomerMX"];
+var myList = ["@TigresOficial", "@Rayados", "@LIGABancomerMX"];
 Array.prototype.del = function(val) {
     for(var i=0; i<this.length; i++) {
         if(this[i] == val) {
@@ -66,11 +67,28 @@ var twit = new twitter({
 });
 
 io.on('connection', function(socket) {
+    console.log("OnConnection");
+    socket.on('data', function(action,data) {
+        console.log("OnData");
+        if(action==='+') {
+            console.log("add:" + data);
+            myList.push(data);
+            console.log("new list:" + myList);
+            //socket.emit('changefilter', myList);
+        }
+        if(action==='-') {
+            console.log("del:" + data);
+            myList.del(data);
+            console.log("new list:" + myList);
+            //socket.emit('changefilter', myList);
+        }
+    });    
     socket.on('getfilter', function() {
-        console.log(myList);
+        console.log("onFilter");
         socket.emit('pushfilter', myList);
     });
     twit.stream('user',{track:myList}, function(stream) {
+        console.log("onStreamTwitter");
         stream.on('data', function (tweet) {
 	    	    socket.emit('message', JSON.stringify(tweet));
         });
